@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo E-Commerce Store - Tracker Testing</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+    header {
+      background: #0f172a;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { font-size: 1.25rem; font-weight: 700; color: #38bdf8; }
+    nav a { color: #cbd5e1; text-decoration: none; margin-left: 1.5rem; font-size: 0.9rem; }
+    nav a:hover { color: white; }
+    
+    .hero {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .hero h2 { font-size: 2.25rem; margin-bottom: 1rem; }
+    .hero p { color: #94a3b8; max-width: 600px; margin: 0 auto 2rem; }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #0284c7; color: white; margin-right: 1rem; }
+    .btn-primary:hover { background: #0369a1; }
+    .btn-secondary { background: #334155; color: white; }
+    .btn-secondary:hover { background: #475569; }
+
+    .container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #0f172a;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .card p { color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .card .price { font-size: 1.25rem; font-weight: bold; color: #0284c7; margin-bottom: 1rem; }
+    
+    .event-log-box {
+      margin-top: 3rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .event-log-box h3 { margin-bottom: 0.75rem; font-size: 1rem; color: #475569; }
+    #log {
+      font-family: monospace;
+      font-size: 0.85rem;
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 1rem;
+      border-radius: 8px;
+      height: 140px;
+      overflow-y: auto;
+    }
+  </style>
+
+  <!-- Embed CausalFunnel Tracking Script -->
+  <script src="/tracker/tracker.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>🛒 Demo Funnel Shop</h1>
+    <nav>
+      <a href="#products">Catalog</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="http://localhost:3000" target="_blank" style="color:#38bdf8; font-weight:600;">📊 Go to Dashboard</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h2>Supercharge Your User Experience</h2>
+    <p>This demo webpage embeds the <code>tracker.js</code> script. Every click and page view automatically gets recorded with coordinates.</p>
+    <div>
+      <button class="btn btn-primary" id="cta-shop-now">Shop Now</button>
+      <button class="btn btn-secondary" id="cta-learn-more">Learn More</button>
+    </div>
+  </div>
+
+  <div class="container" id="products">
+    <h2 class="section-title">Featured Products</h2>
+    <div class="grid">
+      <div class="card">
+        <div>
+          <h3>Smart Noise-Cancelling Headphones</h3>
+          <p>Premium wireless audio with 30-hour battery life.</p>
+          <div class="price">$199.99</div>
+        </div>
+        <button class="btn btn-primary" id="btn-add-headphones">Add to Cart</button>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>Ultra Ergonomic Mechanical Keyboard</h3>
+          <p>Smooth tactile mechanical switches with RGB backlighting.</p>
+          <div class="price">$129.99</div>
+        </div>
+        <button class="btn btn-primary" id="btn-add-keyboard">Add to Cart</button>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>4K Ultra-Wide Curved Monitor</h3>
+          <p>Crisp 144Hz display engineered for productivity and gaming.</p>
+          <div class="price">$449.99</div>
+        </div>
+        <button class="btn btn-primary" id="btn-add-monitor">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Live Event Indicator for Testing -->
+    <div class="event-log-box">
+      <h3>Live Click Indicator (Local Feedback):</h3>
+      <div id="log">Click anywhere on this page to trigger tracked events...</div>
+    </div>
+  </div>
+
+  <script>
+    const logEl = document.getElementById('log');
+    document.addEventListener('click', (e) => {
+      const time = new Date().toLocaleTimeString();
+      const line = `[${time}] Click detected at (${e.pageX}, ${e.pageY}) on <${e.target.tagName.toLowerCase()}> "${(e.target.innerText || '').slice(0, 20)}"\n`;
+      logEl.innerText = line + logEl.innerText;
+    });
+  </script>
+</body>
+</html>
