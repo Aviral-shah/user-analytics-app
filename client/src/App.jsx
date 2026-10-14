@@ -110,7 +110,7 @@ export default function App() {
 
         <div>
           <a
-            href="http://localhost:5000/tracker/demo.html"
+            href="https://user-analytics-server-n8cp.onrender.com/tracker/demo.html"
             target="_blank"
             rel="noreferrer"
             className="demo-link-btn"

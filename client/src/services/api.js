@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://user-analytics-server-n8cp.onrender.com/api';
 
 export const fetchSessions = async () => {
   const res = await fetch(`${API_BASE}/sessions`);

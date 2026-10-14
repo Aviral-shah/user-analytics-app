@@ -2,7 +2,7 @@
   'use strict';
 
   // Configurable backend endpoint (can be overridden via window.ANALYTICS_ENDPOINT)
-  const ENDPOINT = window.ANALYTICS_ENDPOINT || 'http://localhost:5000/api/events';
+  const ENDPOINT = window.ANALYTICS_ENDPOINT || 'https://user-analytics-server-n8cp.onrender.com/api/events';
   const SESSION_COOKIE_NAME = 'cf_analytics_session_id';
   const SESSION_STORAGE_KEY = 'cf_analytics_session_id';
 
